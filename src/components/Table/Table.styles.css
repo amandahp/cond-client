@@ -1,0 +1,32 @@
+.table{
+  padding: 15px;
+}
+
+.search-and-create{
+  padding-bottom: 10px ;
+  display: flex;
+  justify-content: space-between;
+}
+
+input{
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  border: 3px solid var(--blue);
+}
+
+button{
+  border-radius: 10px;
+  background: var(--blue);
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  color: #FFFF;
+  padding: 12px 20px;
+}
+
+.button-addNewResident:hover{
+  background: #FFFF;
+  color: var(--blue);
+}

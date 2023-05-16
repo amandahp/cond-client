@@ -1,0 +1,20 @@
+form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  align-content: center;
+  
+}
+
+label{
+  display: block;
+}
+
+label, .input-form{
+  margin: 0.4rem 0;
+}
+
+.submit{
+  margin-top: 10px;
+}
