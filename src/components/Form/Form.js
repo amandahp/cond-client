@@ -20,8 +20,8 @@ export const Form = ({onSubmit}) => {
         <label htmlFor="phone">Telefone </label>
         <input 
           className='input-form'
-          type="phone"
-          id="phone"
+          type="tel"
+          id="tel"
           {...register('phone')}
         />
        
@@ -45,10 +45,10 @@ export const Form = ({onSubmit}) => {
         />
       </div>
       <div>
-        <label htmlFor="emergencyContact">Número de Emergência</label>
+        <label htmlFor="emergencyContact">Número de Eomergência</label>
         <input 
           className='input-form'
-          type="text"
+          type="tel"
           id="emergencyContact"
           {...register('emergencyContact')}
         />

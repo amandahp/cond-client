@@ -1,13 +1,13 @@
 import { useState, useEffect, useCallback } from "react";
 import { Header, Table } from "../../components"
-import { listApi, listOneItemApi, registerApi } from "../../services/condominiumApi";
-import {isEmpty, omit} from 'lodash'
+import { listApi, listOneItemApi, registerApi, updateApi,deleteApi } from "../../services/condominiumApi";
+import {isEmpty, omit} from "lodash";
 
 
 export const HomePage = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState("");
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState([]);
 
   const fetchList = useCallback(async() => {
     try{
@@ -17,8 +17,7 @@ export const HomePage = () => {
         const responseFiltered = response.filter((r) => !isEmpty(r))
         const responseFormatted = responseFiltered.map((r) => omit(r, ['data']))
         setData(responseFormatted);
-        setUsers(responseFormatted)
-        console.log(responseFormatted)
+        setUsers(responseFormatted);
       }
       
       
@@ -80,6 +79,27 @@ export const HomePage = () => {
   const columns = [{Header:'Nome',accessorKey:'name'},{Header:'Telefone',accessorKey:'phone'},{Header:'Apartamento', accessorKey:'appartament'},{Header:'Número da Vaga',accessorKey:'parkingNumber'},{Header:'Contato de Emergência', accessorKey:'emergencyContact'}]
 
 
+  const handleDelete = async(data) => {
+    try {
+      console.log(data)
+      await deleteApi(data.original.id)
+      fetchList()
+    }catch(e) {
+      setError(e)
+    }
+  }
+
+  const handleEdit = async (data) => {
+    try {
+      const payload = data.values
+      await updateApi(data.row.original.id, payload)
+      data.exitEditingMode()
+      fetchList()
+    }catch(e) {
+      setError(e)
+    }
+  }
+
   return(
     <>
     <Header />
@@ -92,6 +112,8 @@ export const HomePage = () => {
       openModal={openModal}
       addNewResident={addNewRow}
       onSubmitForm={addNewRow}
+      handleDelete={handleDelete}
+      handleEdit={handleEdit}
     />
   </>
 

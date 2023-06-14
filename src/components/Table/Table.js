@@ -1,6 +1,13 @@
 import Modal from "react-modal";
 import { Form } from "../Form/Form";
 import MaterialReactTable from 'material-react-table';
+import {
+  Box,
+  IconButton,
+  Tooltip,
+} from '@mui/material';
+import { Delete, Edit } from '@mui/icons-material';
+
 
 import "./Table.styles.css";
 
@@ -14,7 +21,9 @@ export const Table = ({
   isOpen, 
   onRequestClose, 
   onSubmitForm,
-  closeModal
+  closeModal,
+  handleDelete,
+  handleEdit
 }) => {
   
   const customStyles = {
@@ -32,10 +41,6 @@ export const Table = ({
       justifyContent: "center",
       alignItems: "center",
       alignContent: "center",
-      
-      
-
-
     }
   };
 
@@ -62,7 +67,6 @@ export const Table = ({
       <Modal
         isOpen={isOpen}
         onRequestClose={onRequestClose}
-        contentLabel="Exemplo Modal"
         style={customStyles}
       >
         <Form
@@ -72,18 +76,34 @@ export const Table = ({
        
       </Modal>
       {data.length !== 0 && (
-
         <MaterialReactTable
           enableDensityToggle={false}
           enableHiding={false}
           columns={columns} 
           data={data} 
+          enableEditing
           enableFullScreenToggle={false} 
           enableFilters={false} 
           enableSorting={false} 
+          onEditingRowSave={handleEdit}
+          handleDelete={handleDelete}
           muiTablePaginationProps={{
             labelRowsPerPage:"Linhas por página"
           }}
+          renderRowActions={({ row, table }) => (
+          <Box sx={{ display: 'flex', gap: '1rem' }}>
+            <Tooltip arrow placement="left" title="Editar">
+              <IconButton onClick={() => table.setEditingRow(row)}>
+                <Edit />
+              </IconButton>
+            </Tooltip>
+            <Tooltip arrow placement="right" title="Excluir">
+              <IconButton onClick={() => handleDelete(row)}>
+                <Delete />
+              </IconButton>
+            </Tooltip>
+          </Box>
+        )}
         />
       )}
     </div>
